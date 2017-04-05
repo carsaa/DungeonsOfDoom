@@ -118,7 +118,7 @@ namespace DungeonsOfDoom
             }
 
             if (isValidMove &&
-                IsValidCoordinate(newX, newY, world))
+                IsValidCoordinate(newX, newY))
             {
                 player.X = newX;
                 player.Y = newY;
@@ -127,9 +127,9 @@ namespace DungeonsOfDoom
             }
         }
 
-        private bool IsValidCoordinate<T>(int x, int y, T[,] array)
+        private bool IsValidCoordinate(int x, int y)
         {
-            return x >= 0 && x < array.GetLength(0) && y >= 0 && y < array.GetLength(1);
+            return x >= 0 && x < world.GetLength(0) && y >= 0 && y < world.GetLength(1);
         }
 
         private void DisplayWorld()
@@ -143,7 +143,7 @@ namespace DungeonsOfDoom
                 {
                     int worldX = player.X + (x - meanX);
                     int worldY = player.Y + (y - meanY);
-                    if (IsValidCoordinate(worldX, worldY, display))
+                    if (IsValidCoordinate(worldX, worldY))
                         display[x, y] = world[worldX, worldY].Icon;
                     else
                         display[x, y] = 'X';
@@ -238,7 +238,7 @@ namespace DungeonsOfDoom
             string playerName = "Player1";
             //Console.Write("Ange ditt namn: ");
             //string playerName = Console.ReadLine();
-            player = new Player(30, 20, 20, 5, playerName);
+            player = new Player(30, 99, 99, 5, playerName);
         }
     }
 }
