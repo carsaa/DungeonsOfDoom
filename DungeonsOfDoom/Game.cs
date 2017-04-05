@@ -6,16 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonsOfDoom
 {
-    public class DisplayInfo
-    {
-        public DisplayInfo(char icon, ConsoleColor color)
-        {
-            Icon = icon;
-            Color = color;
-        }
-        public char Icon { get; set; }
-        public ConsoleColor Color { get; set; }
-    }
+
     public class Game
     {
         Player player;

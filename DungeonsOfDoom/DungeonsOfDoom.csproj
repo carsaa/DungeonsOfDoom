@@ -47,6 +47,7 @@
     <Compile Include="Bag.cs" />
     <Compile Include="Cave.cs" />
     <Compile Include="Creature.cs" />
+    <Compile Include="DisplayInfo.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
