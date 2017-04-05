@@ -54,6 +54,7 @@
     <Compile Include="Monster.cs" />
     <Compile Include="PitFall.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="RandomUtils.cs" />
     <Compile Include="Teacher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
