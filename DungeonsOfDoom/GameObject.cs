@@ -15,6 +15,6 @@ namespace DungeonsOfDoom
         }
 
         public string Name { get; }
-        public char Icon { get; }
+        virtual public char Icon { get; }
     }
 }

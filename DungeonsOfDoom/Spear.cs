@@ -8,7 +8,7 @@ namespace DungeonsOfDoom
 {
     class Spear : Weapon
     {
-        public Spear(int weight, string name, int attackStrength, int length) : base(weight, name, attackStrength)
+        public Spear(int length) : base(weight: 2, name: "Spear of Doom", attackStrength: 20)
         {
             Length = length;
         }

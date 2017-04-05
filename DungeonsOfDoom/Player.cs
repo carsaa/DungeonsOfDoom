@@ -18,5 +18,13 @@ namespace DungeonsOfDoom
         public int Y { get; set; }
 
         public Bag Bag { get; } = new Bag();
+
+        //public override void Attack(Creature opponent)
+        //{
+
+        //}
+
+
+
     }
 }

@@ -54,11 +54,13 @@
     <Compile Include="Monster.cs" />
     <Compile Include="PitFall.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Teacher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="Space.cs" />
     <Compile Include="Spear.cs" />
+    <Compile Include="Troll.cs" />
     <Compile Include="Weapon.cs" />
   </ItemGroup>
   <ItemGroup>

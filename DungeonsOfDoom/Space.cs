@@ -16,12 +16,24 @@ namespace DungeonsOfDoom
         public Monster Monster { get; set; }
         public Item Item { get; set; }
 
-        virtual public void Visit(Player player)
+        abstract public void Visit(Creature visitor);
+
+        public override char Icon
         {
-            if (Monster != null)
+            get
             {
-                player.Health -= Monster.Attack;
+                char value;
+                if (Monster != null)
+                    value = Monster.Icon;
+                else if (Item != null)
+                   value = Item.Icon;
+                else
+                   value = base.Icon;
+                return value;
+                 
             }
+            
         }
+
     }
 }

@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace DungeonsOfDoom
 {
-    class Monster : Creature
+    abstract class Monster : Creature
     {
-        public Monster(int health, int attack, string name) : base(health, attack, name, 'M')
+        public Monster(int health, int attack, string name, char icon) : base(health, attack, name, icon)
         {
 
         }
+
 
     }
 }

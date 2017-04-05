@@ -10,13 +10,13 @@ namespace DungeonsOfDoom
     {
         Player player;
         Space[,] world;
+        char[,] display = new char[20, 30];
         Random random = new Random(); //Bra att använda en instans av random för att inte slumpa samma sak hela tiden
 
         public void Play()
         {
             CreatePlayer();
             CreateWorld();
-
 
             do
             {
@@ -50,13 +50,21 @@ namespace DungeonsOfDoom
             {
                 Monster currentMonster = space.Monster;
                 Console.BackgroundColor = ConsoleColor.DarkRed;
+
+                do
+                {
+                    player.Attack(currentMonster);
+                    currentMonster.Attack(player);
+                } while (player.IsAlive && currentMonster.IsAlive);
+                
+
+
                 space.Monster = null;
             }
             else
             {
                 Console.BackgroundColor = ConsoleColor.Black;
             }
-
 
             if (space.Item != null)
             {
@@ -73,17 +81,16 @@ namespace DungeonsOfDoom
                 {
                     Weapon weapon = currentItem as Weapon;
 
-                    player.Attack += weapon.AttackStrength;
+                    player.AttackStrength += weapon.AttackStrength;
                 }
                 space.Item = null;
             }
-
         }
 
         private void DisplayStats()
         {
             int bagCount = player.Bag.Count;
-            Console.WriteLine($"Health: {player.Health} Attack: {player.Attack} Items: {bagCount} Weight: {player.Bag.Weight}");
+            Console.WriteLine($"Health: {player.Health} Attack: {player.AttackStrength} Items: {bagCount} Weight: {player.Bag.Weight}");
             if (bagCount > 0)
             {
                 Console.WriteLine($"Last item collected: {player.Bag[bagCount - 1].Name}");
@@ -93,7 +100,6 @@ namespace DungeonsOfDoom
             {
                 Console.WriteLine();
             }
-
         }
 
         private void AskForMovement()
@@ -117,7 +123,6 @@ namespace DungeonsOfDoom
                 case ConsoleKey.DownArrow:
                     newY++; break;
 
-
                 default:
                     isValidMove = false; break;
             }
@@ -130,7 +135,6 @@ namespace DungeonsOfDoom
                 player.Y = newY;
 
                 player.Health--;
-
             }
         }
 
@@ -146,16 +150,10 @@ namespace DungeonsOfDoom
                     {
                         Console.Write(player.Icon);
                     }
-                    else if (space.Monster != null)
-                    {
-                        Console.Write(space.Monster.Icon);
-                    }
-                    else if (space.Item != null)
-                    {
-                        Console.Write(space.Item.Icon);
-                    }
                     else
+                    {
                         Console.Write(space.Icon);
+                    }
                 }
                 Console.WriteLine();
             }
@@ -185,23 +183,34 @@ namespace DungeonsOfDoom
                     else
                     {
                         Space space;
-                        if (random.Next(0, 100) > 10) { 
+                        if (random.Next(0, 100) > 10)
+                        {
                             space = new Room();
-                        } else {
+                        }
+                        else
+                        {
                             space = new Cave();
                         }
 
 
                         if (player.X != x || player.Y != y)
                         {
-                            if (random.Next(0, 100) < 10)
+                            int current = random.Next(0, 100);
+                            if (current < 10)
                             {
-                                space.Monster = new Monster(30, 5, "Troll");
+                                space.Monster = new Troll();
                             }
-
-                            if (random.Next(0, 100) < 10)
+                            else if (current < 12)
+                            {
+                                space.Monster = new Teacher("Håkan");
+                            }
+                            current = random.Next(0, 100);
+                            if (current < 10)
                             {
                                 space.Item = new Apple();
+                            } else if (current < 11)
+                            {
+                                space.Item = new Spear(1);
                             }
 
                         }

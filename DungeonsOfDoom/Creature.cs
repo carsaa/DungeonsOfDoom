@@ -11,11 +11,17 @@ namespace DungeonsOfDoom
         public Creature(int health, int attack, string name, char icon) : base(name, icon)
         {
             Health = health;
-            Attack = attack;
+            AttackStrength = attack;
         }
 
         public int Health { get; set; }
-        public int Attack { get; set; }
+        public int AttackStrength { get; set; }
         public bool IsAlive { get { return Health > 0; } }
+
+        public virtual void Attack(Creature opponent)
+        {
+            opponent.Health -= this.AttackStrength;
+        }
+
     }
 }

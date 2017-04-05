@@ -12,5 +12,9 @@ namespace DungeonsOfDoom
         {
 
         }
+
+        public override void Visit(Creature visitor)
+        {
+        }
     }
 }

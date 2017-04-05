@@ -13,9 +13,9 @@ namespace DungeonsOfDoom
             
         }
 
-        public override void Visit(Player player)
+        public override void Visit(Creature visitor)
         {
-            player.Health = 0;
+            visitor.Health = 0;
         }
     }
 }

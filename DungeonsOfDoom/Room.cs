@@ -9,5 +9,9 @@ namespace DungeonsOfDoom
     class Room : Space
     {
         public Room() : base("Room") { }
+
+        public override void Visit(Creature visitor)
+        {
+        }
     }
 }
