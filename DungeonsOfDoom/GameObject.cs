@@ -12,9 +12,13 @@ namespace DungeonsOfDoom
         {
             Name = name;
             Icon = icon;
+            Color = ConsoleColor.White;
         }
 
         public string Name { get; }
         virtual public char Icon { get; }
+
+        public virtual ConsoleColor Color { get; set; }
+
     }
 }

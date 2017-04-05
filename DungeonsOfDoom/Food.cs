@@ -14,7 +14,7 @@ namespace DungeonsOfDoom
         }
         public int HealthGain { get;  }
 
-        public override void ItemInteraction(Player player)
+        public override void Interaction(Player player)
         {
             player.Health += this.HealthGain;
         }

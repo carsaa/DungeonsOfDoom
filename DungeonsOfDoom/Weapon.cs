@@ -15,7 +15,7 @@ namespace DungeonsOfDoom
 
         public int AttackStrength { get; set; }
 
-        public override void ItemInteraction(Player player)
+        public override void Interaction(Player player)
         {
             player.Bag.Add(this);
         }

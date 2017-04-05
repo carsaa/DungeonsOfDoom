@@ -56,7 +56,7 @@ namespace DungeonsOfDoom
                     player.Attack(currentMonster);
                     currentMonster.Attack(player);
                 } while (player.IsAlive && currentMonster.IsAlive);
-                
+
 
 
                 space.Monster = null;
@@ -70,19 +70,9 @@ namespace DungeonsOfDoom
             {
                 Item currentItem = space.Item;
                 Console.Beep();
-                player.Bag.Add(currentItem);
-                if (currentItem is Food)
-                {
-                    Food food = currentItem as Food;
 
-                    player.Health += food.HealthGain;
-                }
-                else if (currentItem is Weapon)
-                {
-                    Weapon weapon = currentItem as Weapon;
+                currentItem.Interaction(player);
 
-                    player.AttackStrength += weapon.AttackStrength;
-                }
                 space.Item = null;
             }
         }
@@ -93,7 +83,7 @@ namespace DungeonsOfDoom
             Console.WriteLine($"Health: {player.Health} Attack: {player.AttackStrength} Items: {bagCount} Weight: {player.Bag.Weight}");
             if (bagCount > 0)
             {
-                Console.WriteLine($"Last item collected: {player.Bag[bagCount - 1].Name}");
+                Console.WriteLine($"You found a {player.Bag[bagCount - 1].Name}! Item added to bag.");
 
             }
             else
@@ -133,7 +123,7 @@ namespace DungeonsOfDoom
                 player.X = newX;
                 player.Y = newY;
 
-                player.Health--;
+                //player.Health--;
             }
         }
 
@@ -166,7 +156,14 @@ namespace DungeonsOfDoom
             {
                 for (int x = 0; x < display.GetLength(0); x++)
                 {
-                    Console.Write(" "+ display[x, y] +" ");       
+                    if (display[x, y] == 'P')
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write(" P ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    else
+                        Console.Write(" " + display[x, y] + " ");
                 }
                 Console.WriteLine();
             }
@@ -214,7 +211,7 @@ namespace DungeonsOfDoom
                             {
                                 space.Monster = new Troll();
                             }
-                            else if (current < 12)
+                            else if (current < 40)
                             {
                                 space.Monster = new Teacher("Håkan");
                             }
@@ -222,7 +219,8 @@ namespace DungeonsOfDoom
                             if (current < 10)
                             {
                                 space.Item = new Apple();
-                            } else if (current < 11)
+                            }
+                            else if (current < 11)
                             {
                                 space.Item = new Spear(1);
                             }
