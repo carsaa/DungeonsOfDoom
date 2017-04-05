@@ -118,7 +118,7 @@ namespace DungeonsOfDoom
             }
 
             if (isValidMove &&
-                IsValidCoordinate(newX, newY))
+                IsValidCoordinate(newX, newY, world))
             {
                 player.X = newX;
                 player.Y = newY;
@@ -127,9 +127,9 @@ namespace DungeonsOfDoom
             }
         }
 
-        private bool IsValidCoordinate(int x, int y)
+        private bool IsValidCoordinate<T>(int x, int y, T[,] array)
         {
-            return x >= 0 && x < world.GetLength(0) && y >= 0 && y < world.GetLength(1);
+            return x >= 0 && x < array.GetLength(0) && y >= 0 && y < array.GetLength(1);
         }
 
         private void DisplayWorld()
@@ -143,7 +143,7 @@ namespace DungeonsOfDoom
                 {
                     int worldX = player.X + (x - meanX);
                     int worldY = player.Y + (y - meanY);
-                    if (IsValidCoordinate(worldX, worldY))
+                    if (IsValidCoordinate(worldX, worldY, display))
                         display[x, y] = world[worldX, worldY].Icon;
                     else
                         display[x, y] = 'X';
