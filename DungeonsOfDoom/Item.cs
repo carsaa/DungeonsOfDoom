@@ -16,5 +16,6 @@ namespace DungeonsOfDoom
         public int Weight { get; set; }
         //public int Health { get; set; }
         //public int Attack { get; set; }
+        public abstract void ItemInteraction(Player player);
     }
 }

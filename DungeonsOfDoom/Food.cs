@@ -13,5 +13,10 @@ namespace DungeonsOfDoom
             HealthGain = healthGain;
         }
         public int HealthGain { get;  }
+
+        public override void ItemInteraction(Player player)
+        {
+            player.Health += this.HealthGain;
+        }
     }
 }
