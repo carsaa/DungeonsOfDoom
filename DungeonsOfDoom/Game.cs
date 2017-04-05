@@ -10,7 +10,7 @@ namespace DungeonsOfDoom
     {
         Player player;
         Space[,] world;
-        char[,] display = new char[20, 30];
+        char[,] display = new char[21, 21];
         Random random = new Random(); //Bra att använda en instans av random för att inte slumpa samma sak hela tiden
 
         public void Play()
@@ -128,8 +128,7 @@ namespace DungeonsOfDoom
             }
 
             if (isValidMove &&
-                newX >= 0 && newX < world.GetLength(0) &&
-                newY >= 0 && newY < world.GetLength(1))
+                IsValidCoordinate(newX, newY))
             {
                 player.X = newX;
                 player.Y = newY;
@@ -138,25 +137,40 @@ namespace DungeonsOfDoom
             }
         }
 
+        private bool IsValidCoordinate(int x, int y)
+        {
+            return x >= 0 && x < world.GetLength(0) && y >= 0 && y < world.GetLength(1);
+        }
+
         private void DisplayWorld()
         {
-            for (int y = 0; y < world.GetLength(1); y++)
+            int meanX = display.GetLength(0) / 2;
+            int meanY = display.GetLength(1) / 2;
+            // copy world to display
+            for (int y = 0; y < display.GetLength(1); y++)
             {
-                for (int x = 0; x < world.GetLength(0); x++)
+                for (int x = 0; x < display.GetLength(0); x++)
                 {
-                    Space space = world[x, y];
-
-                    if (player.X == x && player.Y == y)
-                    {
-                        Console.Write(player.Icon);
-                    }
+                    int worldX = player.X + (x - meanX);
+                    int worldY = player.Y + (y - meanY);
+                    if (IsValidCoordinate(worldX, worldY))
+                        display[x, y] = world[worldX, worldY].Icon;
                     else
-                    {
-                        Console.Write(space.Icon);
-                    }
+                        display[x, y] = 'X';
+                }
+            }
+            display[meanX, meanY] = player.Icon;
+
+            // show display
+            for (int y = 0; y < display.GetLength(1); y++)
+            {
+                for (int x = 0; x < display.GetLength(0); x++)
+                {
+                    Console.Write(" "+ display[x, y] +" ");       
                 }
                 Console.WriteLine();
             }
+
         }
 
         private void GameOver()
@@ -169,7 +183,7 @@ namespace DungeonsOfDoom
 
         private void CreateWorld()
         {
-            world = new Space[30, 10];
+            world = new Space[100, 100];
 
             for (int y = 0; y < world.GetLength(1); y++)
             {
@@ -226,7 +240,7 @@ namespace DungeonsOfDoom
             string playerName = "Player1";
             //Console.Write("Ange ditt namn: ");
             //string playerName = Console.ReadLine();
-            player = new Player(30, 0, 0, 5, playerName);
+            player = new Player(30, 20, 20, 5, playerName);
         }
     }
 }
