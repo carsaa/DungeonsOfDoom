@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DungeonsOfDoom
@@ -173,7 +174,8 @@ namespace DungeonsOfDoom
         private void GameOver()
         {
             Console.Clear();
-            Console.WriteLine($"Game over {player.Name} !");
+            TextUtils.AnimateText($"Game over {player.Name} !", 70);
+            Thread.Sleep(1000);
             Console.ReadKey();
             Play();
         }

@@ -60,6 +60,7 @@
     <Compile Include="Room.cs" />
     <Compile Include="Space.cs" />
     <Compile Include="Spear.cs" />
+    <Compile Include="TextUtils.cs" />
     <Compile Include="Troll.cs" />
     <Compile Include="Weapon.cs" />
   </ItemGroup>
