@@ -18,9 +18,10 @@ namespace DungeonsOfDoom
         public int AttackStrength { get; set; }
         public bool IsAlive { get { return Health > 0; } }
 
-        public virtual void Attack(Creature opponent)
+        public virtual string Attack(Creature opponent)
         {
             opponent.Health -= this.AttackStrength;
+            return $"{Name} attacked {opponent.Name} and dealt {AttackStrength} damage.";
         }
 
     }

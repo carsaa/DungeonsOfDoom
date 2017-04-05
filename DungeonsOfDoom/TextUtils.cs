@@ -16,6 +16,7 @@ namespace DungeonsOfDoom
                 Console.Write(c);
                 Thread.Sleep(delay);
             }
+            Console.WriteLine();
         }
     }
 }
