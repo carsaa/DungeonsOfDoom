@@ -240,7 +240,7 @@ namespace DungeonsOfDoom
             string playerName = "Player1";
             //Console.Write("Ange ditt namn: ");
             //string playerName = Console.ReadLine();
-            player = new Player(30, 20, 20, 5, playerName);
+            player = new Player(30, 99, 99, 5, playerName);
         }
     }
 }
