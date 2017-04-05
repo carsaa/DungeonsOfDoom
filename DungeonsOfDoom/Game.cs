@@ -77,7 +77,7 @@ namespace DungeonsOfDoom
             do
             {
                 string currentInfo;
-                if (RandomUtils.CheckNumber(50))
+                if (RandomUtils.TryPercentage(50))
                 {
                     currentInfo = player.Attack(currentMonster);
                     TextUtils.AnimateText(currentInfo, 20);
@@ -86,8 +86,6 @@ namespace DungeonsOfDoom
                         currentInfo = currentMonster.Attack(player);
                         TextUtils.AnimateText(currentInfo, 20);
                     }
-                    
-                
                 }
 
                 else
@@ -104,11 +102,16 @@ namespace DungeonsOfDoom
 
             } while (player.IsAlive && currentMonster.IsAlive);
 
-            if (player.IsAlive){
+            if (player.IsAlive)
+            {
                 TextUtils.AnimateText($"{currentMonster.Name} died!", 20);
                 Console.ReadKey();
             }
-
+            else
+            {
+                TextUtils.AnimateText($"Frappidiclappidido, {currentMonster.Name} killed you!", 20);
+                Console.ReadKey();
+            }
             Monster.MonsterCounter--;
         }
 
@@ -223,7 +226,7 @@ namespace DungeonsOfDoom
             {
                 for (int x = 0; x < world.GetLength(0); x++)
                 {
-                    if (RandomUtils.CheckNumber(2))
+                    if (RandomUtils.TryPercentage(2))
                     {
                         world[x, y] = new Pitfall();
                     }
@@ -231,7 +234,7 @@ namespace DungeonsOfDoom
                     else
                     {
                         Space space;
-                        if (RandomUtils.CheckNumber(3))
+                        if (RandomUtils.TryPercentage(3))
                         {
                             space = new Cave();
                         }
@@ -243,20 +246,20 @@ namespace DungeonsOfDoom
 
                         if (player.X != x || player.Y != y)
                         {
-                            if (RandomUtils.CheckNumber(5))
+                            if (RandomUtils.TryPercentage(5))
                             {
                                 space.Monster = new Troll();
                             }
-                            else if (RandomUtils.CheckNumber(5))
+                            else if (RandomUtils.TryPercentage(5))
                             {
                                 space.Monster = new Teacher("Håkan");
                             }
 
-                            if (RandomUtils.CheckNumber(5))
+                            if (RandomUtils.TryPercentage(5))
                             {
                                 space.Item = new Apple();
                             }
-                            else if (RandomUtils.CheckNumber(1))
+                            else if (RandomUtils.TryPercentage(1))
                             {
                                 space.Item = new Spear(1);
                             }
@@ -274,7 +277,7 @@ namespace DungeonsOfDoom
             string playerName = "Linus";
             //Console.Write("Ange ditt namn: ");
             //string playerName = Console.ReadLine();
-            player = new Player(30, RandomUtils.GetRandomNumber(0, worldSizeX),
+            player = new Player(10, RandomUtils.GetRandomNumber(0, worldSizeX),
                 RandomUtils.GetRandomNumber(0, worldSizeY), 5, playerName);
         }
     }

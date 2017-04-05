@@ -16,7 +16,7 @@ namespace DungeonsOfDoom
             return value;
         }
 
-        static public bool CheckNumber(int percentage)
+        static public bool TryPercentage(int percentage)
         {
             return random.Next(0, 100) < percentage;
         }
