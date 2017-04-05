@@ -6,11 +6,22 @@ using System.Threading.Tasks;
 
 namespace DungeonsOfDoom
 {
+    public class DisplayInfo
+    {
+        public DisplayInfo(char icon, ConsoleColor color)
+        {
+            Icon = icon;
+            Color = color;
+        }
+        public char Icon { get; set; }
+        public ConsoleColor Color { get; set; }
+    }
     public class Game
     {
         Player player;
         Space[,] world;
-        char[,] display = new char[21, 21];
+        DisplayInfo[,] display = new DisplayInfo[21, 21];
+
         Random random = new Random(); //Bra att använda en instans av random för att inte slumpa samma sak hela tiden
 
         public void Play()
@@ -144,26 +155,22 @@ namespace DungeonsOfDoom
                     int worldX = player.X + (x - meanX);
                     int worldY = player.Y + (y - meanY);
                     if (IsValidCoordinate(worldX, worldY))
-                        display[x, y] = world[worldX, worldY].Icon;
+                        
+                        display[x, y] = new DisplayInfo(world[worldX, worldY].Icon, ConsoleColor.White);
                     else
-                        display[x, y] = 'X';
+                        display[x, y] = new DisplayInfo('X', ConsoleColor.DarkMagenta); ;
                 }
             }
-            display[meanX, meanY] = player.Icon;
+            display[meanX, meanY] = new DisplayInfo(player.Icon, ConsoleColor.Green);
 
             // show display
             for (int y = 0; y < display.GetLength(1); y++)
             {
                 for (int x = 0; x < display.GetLength(0); x++)
                 {
-                    if (display[x, y] == 'P')
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write(" P ");
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                    else
-                        Console.Write(" " + display[x, y] + " ");
+                    DisplayInfo info = display[x, y];
+                    Console.ForegroundColor = info.Color; 
+                     Console.Write(" " + info.Icon + " ");
                 }
                 Console.WriteLine();
             }
