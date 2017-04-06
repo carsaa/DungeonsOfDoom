@@ -8,7 +8,7 @@ namespace DungeonsOfDoom
 {
     class Pitfall : Space
     {
-        public Pitfall() : base ("P", ' ')
+        public Pitfall() : base ("Pitfall", ' ')
         {
             
         }

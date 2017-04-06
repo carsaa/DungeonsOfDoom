@@ -34,7 +34,6 @@ namespace DungeonsOfDoom
 
             GameOver();
         }
-
         private void DisplayItems()
         {
             foreach (var item in player.Bag)
@@ -164,34 +163,31 @@ namespace DungeonsOfDoom
                 player.X = newX;
                 player.Y = newY;
 
-                //player.Health--;
+                player.Health--;
             }
         }
 
-        private bool IsValidCoordinate(int x, int y)
-        {
-            return x >= 0 && x < world.GetLength(0) && y >= 0 && y < world.GetLength(1);
-        }
+        private bool IsValidCoordinate(int x, int y) => x >= 0 && x < world.GetLength(0) && y >= 0 && y < world.GetLength(1);
 
         private void DisplayWorld()
         {
-            int meanX = display.GetLength(0) / 2;
-            int meanY = display.GetLength(1) / 2;
+            int medianX = display.GetLength(0) / 2;
+            int medianY = display.GetLength(1) / 2;
             // copy world to display
             for (int y = 0; y < display.GetLength(1); y++)
             {
                 for (int x = 0; x < display.GetLength(0); x++)
                 {
-                    int worldX = player.X + (x - meanX);
-                    int worldY = player.Y + (y - meanY);
+                    int worldX = player.X + (x - medianX);
+                    int worldY = player.Y + (y - medianY);
                     if (IsValidCoordinate(worldX, worldY))
 
                         display[x, y] = new DisplayInfo(world[worldX, worldY].Icon, ConsoleColor.White);
                     else
-                        display[x, y] = new DisplayInfo('X', ConsoleColor.DarkMagenta); ;
+                        display[x, y] = new DisplayInfo('X', ConsoleColor.DarkMagenta);
                 }
             }
-            display[meanX, meanY] = new DisplayInfo(player.Icon, ConsoleColor.Green);
+            display[medianX, medianY] = new DisplayInfo(player.Icon, ConsoleColor.Green);
 
             // show display
             for (int y = 0; y < display.GetLength(1); y++)
@@ -218,6 +214,7 @@ namespace DungeonsOfDoom
 
         private void CreateWorld()
         {
+            //Resetting monster counter when game restarts
             Monster.MonsterCounter = 0;
 
             world = new Space[worldSizeX, worldSizeY];
@@ -242,8 +239,7 @@ namespace DungeonsOfDoom
                         {
                             space = new Room();
                         }
-
-
+                        //Skulle kunna lösa placering av creatures/items i metoder för att abstrahera bort det från Space-klassen.
                         if (player.X != x || player.Y != y)
                         {
                             if (RandomUtils.TryPercentage(5))
@@ -275,9 +271,9 @@ namespace DungeonsOfDoom
         private void CreatePlayer()
         {
             string playerName = "Linus";
-            //Console.Write("Ange ditt namn: ");
-            //string playerName = Console.ReadLine();
-            player = new Player(10, RandomUtils.GetRandomNumber(0, worldSizeX),
+
+            //Ny spelare med 30 liv och 5 attack, slumpar startposition
+            player = new Player(30, RandomUtils.GetRandomNumber(0, worldSizeX),
                 RandomUtils.GetRandomNumber(0, worldSizeY), 5, playerName);
         }
     }

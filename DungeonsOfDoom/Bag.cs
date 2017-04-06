@@ -9,5 +9,6 @@ namespace DungeonsOfDoom
     class Bag: List<Item>
     {
         public int Weight { get { return this.Sum(item => item.Weight); } }
+       
     }
 }
