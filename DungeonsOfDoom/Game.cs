@@ -201,6 +201,8 @@ namespace DungeonsOfDoom
                 Console.WriteLine();
             }
 
+            Console.ForegroundColor = ConsoleColor.White;
+
         }
 
         private void GameOver()
