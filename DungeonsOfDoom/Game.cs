@@ -20,15 +20,16 @@ namespace DungeonsOfDoom
         {
             CreatePlayer();
             CreateWorld();
-
+            DisplayWorld();
+            DisplayStats();
             do
             {
+                AskForMovement();
+                CheckSpace();
                 Console.Clear();
                 DisplayWorld();
                 DisplayStats();
                 DisplayItems();
-                AskForMovement();
-                CheckSpace();
 
             } while (player.IsAlive);
 
@@ -52,6 +53,9 @@ namespace DungeonsOfDoom
             {
                 Monster currentMonster = space.Monster;
                 Console.BackgroundColor = ConsoleColor.DarkRed;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Clear();
+                DisplayWorld();
                 Battle(currentMonster);
                 space.Monster = null;
             }
@@ -71,7 +75,7 @@ namespace DungeonsOfDoom
             }
         }
 
-        private void Battle(Monster currentMonster)
+        private void Battle(IAttackable currentMonster)
         {
             do
             {
@@ -92,7 +96,8 @@ namespace DungeonsOfDoom
                     currentInfo = currentMonster.Attack(player);
                     TextUtils.AnimateText(currentInfo, 20);
 
-                    if (player.IsAlive) { 
+                    if (player.IsAlive)
+                    {
                         currentInfo = player.Attack(currentMonster);
                         TextUtils.AnimateText(currentInfo, 20);
 
@@ -104,13 +109,13 @@ namespace DungeonsOfDoom
             if (player.IsAlive)
             {
                 TextUtils.AnimateText($"{currentMonster.Name} died!", 20);
-                Console.ReadKey();
             }
             else
             {
                 TextUtils.AnimateText($"Frappidiclappidido, {currentMonster.Name} killed you!", 20);
-                Console.ReadKey();
+                GameOver();
             }
+            Thread.Sleep(200);
             Monster.MonsterCounter--;
         }
 

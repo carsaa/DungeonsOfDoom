@@ -51,6 +51,7 @@
     <Compile Include="Food.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="Interfaces.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Monster.cs" />
     <Compile Include="PitFall.cs" />
