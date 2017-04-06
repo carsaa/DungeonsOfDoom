@@ -20,7 +20,7 @@ namespace DungeonsOfDoom
             }
         }
 
-        public override string Attack(Creature opponent)
+        public override string Attack(IAttackable opponent)
         {
             opponent.Health += this.AttackStrength;
             return $"Teacher {Name} gave you {AttackStrength} health!";

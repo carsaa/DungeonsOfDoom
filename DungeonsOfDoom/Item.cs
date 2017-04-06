@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonsOfDoom
 {
-    abstract class Item : GameObject
+    abstract class Item : GameObject, ICollectable
     {
         public Item(string name, int weight) : base(name, 'I')
         {
@@ -14,6 +14,7 @@ namespace DungeonsOfDoom
         }
 
         public int Weight { get; set; }
+
         //public int Health { get; set; }
         //public int Attack { get; set; }
         public abstract void Interaction(Player player);

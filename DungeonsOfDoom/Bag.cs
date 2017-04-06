@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonsOfDoom
 {
-    class Bag: List<Item>
+    class Bag: List<ICollectable>
     {
         public int Weight { get { return this.Sum(item => item.Weight); } }
        
