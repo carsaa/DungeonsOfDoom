@@ -1,23 +1,29 @@
-﻿using System;
+﻿using DungeonsOfDoom.Creatures;
+using DungeonsOfDoom.Items;
+using DungeonsOfDoom.Spaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Utils;
 
 namespace DungeonsOfDoom
 {
 
     public class Game
     {
-        Player player;
-        Space[,] world;
-        DisplayInfo[,] display = new DisplayInfo[21, 21];
+        public Player player { get; set; }
+        public Space[,] world { get; set; }
+        ConsoleDisplay display = new ConsoleDisplay();
         const int worldSizeX = 100, worldSizeY = 100;
 
 
         public void Play()
         {
+            Console.Clear();
+
             CreatePlayer();
             CreateWorld();
             DisplayWorld();
@@ -35,11 +41,12 @@ namespace DungeonsOfDoom
 
             GameOver();
         }
+
         private void DisplayItems()
         {
             foreach (var item in player.Bag)
             {
-                Console.Write(item.Name + ", ");
+                display.Display(item.Name + ", ");
             }
         }
 
@@ -77,46 +84,56 @@ namespace DungeonsOfDoom
 
         private void Battle(IAttackable currentMonster)
         {
+            List<string> currentInfo = new List<string>();
+
             do
             {
-                string currentInfo;
+
                 if (RandomUtils.TryPercentage(50))
                 {
-                    currentInfo = player.Attack(currentMonster);
-                    TextUtils.AnimateText(currentInfo, 20);
+                    currentInfo.Add(player.Attack(currentMonster));
+
                     if (currentMonster.IsAlive)
                     {
-                        currentInfo = currentMonster.Attack(player);
-                        TextUtils.AnimateText(currentInfo, 20);
+                        currentInfo.Add(currentMonster.Attack(player));
                     }
                 }
 
                 else
                 {
-                    currentInfo = currentMonster.Attack(player);
-                    TextUtils.AnimateText(currentInfo, 20);
+                    currentInfo.Add(currentMonster.Attack(player));
 
                     if (player.IsAlive)
                     {
-                        currentInfo = player.Attack(currentMonster);
-                        TextUtils.AnimateText(currentInfo, 20);
-
+                        currentInfo.Add(player.Attack(currentMonster));
                     }
                 }
 
             } while (player.IsAlive && currentMonster.IsAlive);
 
+
+
             if (player.IsAlive)
             {
-                TextUtils.AnimateText($"{currentMonster.Name} died!", 20);
+                currentInfo.Add($"{currentMonster.Name} died!");
             }
             else
             {
-                TextUtils.AnimateText($"Frappidiclappidido, {currentMonster.Name} killed you!", 20);
-                GameOver();
+                currentInfo.Add($"Frappidiclappidido, {currentMonster.Name} killed you!");
             }
-            Thread.Sleep(200);
+
+            DisplayBattle(currentInfo);
+
+            Thread.Sleep(1500);
             Monster.MonsterCounter--;
+        }
+
+        private void DisplayBattle(List<string> currentInfo)
+        {
+            foreach (var happening in currentInfo)
+            {
+                TextUtils.AnimateText(happening, 10);
+            }
         }
 
         private void DisplayStats()
@@ -135,6 +152,7 @@ namespace DungeonsOfDoom
             {
                 Console.WriteLine();
             }
+            "Kanske en lång dag".AnimateText(10);
         }
 
         private void AskForMovement()
@@ -172,40 +190,12 @@ namespace DungeonsOfDoom
             }
         }
 
-        private bool IsValidCoordinate(int x, int y) => x >= 0 && x < world.GetLength(0) && y >= 0 && y < world.GetLength(1);
+        public bool IsValidCoordinate(int x, int y) => x >= 0 && x < world.GetLength(0) && y >= 0 && y < world.GetLength(1);
+
 
         private void DisplayWorld()
         {
-            int medianX = display.GetLength(0) / 2;
-            int medianY = display.GetLength(1) / 2;
-            // copy world to display
-            for (int y = 0; y < display.GetLength(1); y++)
-            {
-                for (int x = 0; x < display.GetLength(0); x++)
-                {
-                    int worldX = player.X + (x - medianX);
-                    int worldY = player.Y + (y - medianY);
-                    if (IsValidCoordinate(worldX, worldY))
-
-                        display[x, y] = new DisplayInfo(world[worldX, worldY].Icon, ConsoleColor.White);
-                    else
-                        display[x, y] = new DisplayInfo('X', ConsoleColor.DarkMagenta);
-                }
-            }
-            display[medianX, medianY] = new DisplayInfo(player.Icon, ConsoleColor.Green);
-
-            // show display
-            for (int y = 0; y < display.GetLength(1); y++)
-            {
-                for (int x = 0; x < display.GetLength(0); x++)
-                {
-                    DisplayInfo info = display[x, y];
-                    Console.ForegroundColor = info.Color;
-                    Console.Write(" " + info.Icon + " ");
-                }
-                Console.WriteLine();
-            }
-
+            display.DisplayWorld(this);
         }
 
         private void GameOver()
@@ -223,6 +213,7 @@ namespace DungeonsOfDoom
             Monster.MonsterCounter = 0;
 
             world = new Space[worldSizeX, worldSizeY];
+            
 
             for (int y = 0; y < world.GetLength(1); y++)
             {
@@ -244,6 +235,7 @@ namespace DungeonsOfDoom
                         {
                             space = new Room();
                         }
+                        
                         //Skulle kunna lösa placering av creatures/items i metoder för att abstrahera bort det från Space-klassen.
                         if (player.X != x || player.Y != y)
                         {
@@ -268,7 +260,6 @@ namespace DungeonsOfDoom
                         }
                         world[x, y] = space;
                     }
-
                 }
             }
         }

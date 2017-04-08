@@ -5,17 +5,18 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DungeonsOfDoom
+namespace Utils
 {
-    static class TextUtils
+    public static class TextUtils
     {
-        public static void AnimateText (string text, int delay)
+        public static void AnimateText (this string text, int delay)
         {
             foreach (var c in text)
             {
                 Console.Write(c);
                 Thread.Sleep(delay);
             }
+            
             Console.WriteLine();
         }
     }

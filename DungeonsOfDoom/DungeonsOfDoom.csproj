@@ -43,34 +43,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Apple.cs" />
+    <Compile Include="Items\Apple.cs" />
     <Compile Include="Bag.cs" />
-    <Compile Include="Cave.cs" />
-    <Compile Include="Creature.cs" />
+    <Compile Include="Spaces\Cave.cs" />
+    <Compile Include="Creatures\Creature.cs" />
     <Compile Include="DisplayInfo.cs" />
-    <Compile Include="Food.cs" />
+    <Compile Include="Items\Food.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Interfaces.cs" />
-    <Compile Include="Item.cs" />
-    <Compile Include="Monster.cs" />
-    <Compile Include="PitFall.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="RandomUtils.cs" />
-    <Compile Include="Teacher.cs" />
+    <Compile Include="Items\Item.cs" />
+    <Compile Include="Creatures\Monster.cs" />
+    <Compile Include="ConsoleDisplay.cs" />
+    <Compile Include="Spaces\PitFall.cs" />
+    <Compile Include="Creatures\Player.cs" />
+    <Compile Include="Creatures\Teacher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Room.cs" />
-    <Compile Include="Space.cs" />
-    <Compile Include="Spear.cs" />
-    <Compile Include="TextUtils.cs" />
-    <Compile Include="Troll.cs" />
-    <Compile Include="Weapon.cs" />
+    <Compile Include="Spaces\Room.cs" />
+    <Compile Include="Spaces\Space.cs" />
+    <Compile Include="Items\Spear.cs" />
+    <Compile Include="Creatures\Troll.cs" />
+    <Compile Include="Items\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{5268612e-10dd-46ce-9ab7-603d863c3f5a}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

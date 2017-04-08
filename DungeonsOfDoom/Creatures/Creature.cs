@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonsOfDoom
+namespace DungeonsOfDoom.Creatures
 {
-    abstract class Creature : GameObject, IAttackable
+    public abstract class Creature : GameObject, IAttackable
     {
         public Creature(int health, int attack, string name, char icon) : base(name, icon)
         {

@@ -1,12 +1,13 @@
-﻿using System;
+﻿using DungeonsOfDoom.Creatures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonsOfDoom
+namespace DungeonsOfDoom.Items
 {
-    abstract class Item : GameObject, ICollectable
+    public abstract class Item : GameObject, ICollectable
     {
         public Item(string name, int weight) : base(name, 'I')
         {

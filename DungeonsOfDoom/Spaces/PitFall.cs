@@ -1,20 +1,22 @@
-﻿using System;
+﻿using DungeonsOfDoom.Creatures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonsOfDoom
+namespace DungeonsOfDoom.Spaces
 {
-    class Cave: Space
+    class Pitfall : Space
     {
-        public Cave(): base("Cave", '@')
+        public Pitfall() : base ("Pitfall", ' ')
         {
-
+            
         }
 
         public override void Visit(Creature visitor)
         {
+            visitor.Health = 0;
         }
     }
 }
